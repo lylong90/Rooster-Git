@@ -30,7 +30,8 @@
         </activity>
         <activity android:name=".ChatActivity">
         </activity>
-        <service android:name=".RoosterConnectionService">
+        <service android:name=".RoosterConnectionService" android:enabled="true">
+            <!--android:process=":ConnectionServiceBackground">-->
         </service>
 
         <receiver
@@ -42,7 +43,10 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.blikoon.rooster.BootCompletedReceiver">
+        <receiver android:name="com.blikoon.rooster.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <!--android:process=":ConnectionServiceBackground">-->
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

@@ -23,6 +23,10 @@ public class AppPreferences
         return _sharedPrefs.getString(prefKey, ""); // return empty string if got null
     }
 
+    public boolean getBoolean(String prefKey) {
+        return _sharedPrefs.getBoolean(prefKey, false);
+    }
+
     public void putString(String prefKey, String value) {
         _prefsEditor.putString(prefKey, value);
         _prefsEditor.apply();

@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.blikoon.rooster.constant.SharedPreferencesConstant;
+
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.ChatMessageListener;
@@ -54,9 +56,9 @@ public class RoosterConnection implements ConnectionListener,ChatMessageListener
         Log.d(TAG,"RoosterConnection Constructor called.");
         mApplicationContext = context.getApplicationContext();
         String jid = PreferenceManager.getDefaultSharedPreferences(mApplicationContext)
-                .getString("xmpp_jid",null);
+                .getString(SharedPreferencesConstant.PREF_JID, null);
         mPassword = PreferenceManager.getDefaultSharedPreferences(mApplicationContext)
-                .getString("xmpp_password",null);
+                .getString(SharedPreferencesConstant.PREF_PASSWORD, null);
 
         if( jid != null)
         {
@@ -175,7 +177,7 @@ public class RoosterConnection implements ConnectionListener,ChatMessageListener
 
     public void disconnect()
     {
-        Log.d(TAG,"Disconnecting from serser "+ mServiceName);
+        Log.d(TAG,"Disconnecting from server "+ mServiceName);
         try
         {
             if (mConnection != null)
@@ -217,7 +219,7 @@ public class RoosterConnection implements ConnectionListener,ChatMessageListener
     @Override
     public void connectionClosed() {
         RoosterConnectionService.sConnectionState=ConnectionState.DISCONNECTED;
-        Log.d(TAG,"Connectionclosed()");
+        Log.d(TAG,"Connection closed()");
 
     }
 

@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blikoon.rooster.constant.SharedPreferencesConstant;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -53,6 +55,14 @@ public class LoginActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (RoosterConnectionService.getState() == RoosterConnection.ConnectionState.CONNECTED)
+        {
+            Intent i2 = new Intent(this, ContactListActivity.class);
+            startActivity(i2);
+            finish();
+        }
+
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mJidView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -221,9 +231,9 @@ public class LoginActivity extends AppCompatActivity
         Log.d(TAG,"saveCredentialsAndLogin() called.");
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit()
-                .putString("xmpp_jid", mJidView.getText().toString())
-                .putString("xmpp_password", mPasswordView.getText().toString())
-                .putBoolean("xmpp_logged_in",true)
+                .putString(SharedPreferencesConstant.PREF_JID, mJidView.getText().toString())
+                .putString(SharedPreferencesConstant.PREF_PASSWORD, mPasswordView.getText().toString())
+                .putBoolean(SharedPreferencesConstant.PREF_LOGGED_IN, true)
                 .apply();
 //                .commit();
 
