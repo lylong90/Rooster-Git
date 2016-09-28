@@ -7,9 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blikoon.rooster.constant.SharedPreferencesConstant;
+import com.blikoon.rooster.util.AppPreferences;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -229,13 +228,19 @@ public class LoginActivity extends AppCompatActivity
     private void saveCredentialsAndLogin()
     {
         Log.d(TAG,"saveCredentialsAndLogin() called.");
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit()
-                .putString(SharedPreferencesConstant.PREF_JID, mJidView.getText().toString())
-                .putString(SharedPreferencesConstant.PREF_PASSWORD, mPasswordView.getText().toString())
-                .putBoolean(SharedPreferencesConstant.PREF_LOGGED_IN, true)
-                .apply();
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        prefs.edit()
+//                .putString(SharedPreferencesConstant.PREF_JID, mJidView.getText().toString())
+//                .putString(SharedPreferencesConstant.PREF_PASSWORD, mPasswordView.getText().toString())
+//                .putBoolean(SharedPreferencesConstant.PREF_LOGGED_IN, true)
+//                .apply();
+
 //                .commit();
+
+        AppPreferences.putString(this, SharedPreferencesConstant.PREF_JID, mJidView.getText().toString());
+        AppPreferences.putString(this, SharedPreferencesConstant.PREF_PASSWORD, mPasswordView.getText().toString());
+        AppPreferences.putBoolean(this, SharedPreferencesConstant.PREF_LOGGED_IN, true);
+
 
         //Start the service
         Intent i1 = new Intent(this, RoosterConnectionService.class);

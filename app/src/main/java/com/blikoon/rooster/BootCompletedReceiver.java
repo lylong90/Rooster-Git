@@ -23,11 +23,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 //        Log.d(TAG,"saveCredentialsAndLogin() called.");
         Toast.makeText(context, "BootCompletedReceiver!!!", Toast.LENGTH_LONG).show();
 
-
-//        AppPreferences appPreferences = new AppPreferences(context, SharedPreferencesConstant.PREF);
-//        boolean loggedIn = appPreferences.getBoolean(SharedPreferencesConstant.PREF_LOGGED_IN);
-        boolean loggedIn = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(SharedPreferencesConstant.PREF_LOGGED_IN, false);
+        boolean loggedIn = AppPreferences.getBoolean(context, SharedPreferencesConstant.PREF_LOGGED_IN, false);
 
         if (loggedIn) {
             //Start the service

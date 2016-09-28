@@ -2,6 +2,8 @@ package com.blikoon.rooster;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
@@ -27,8 +29,7 @@ public class MessageReceiver extends WakefulBroadcastReceiver {
                 String body = intent.getStringExtra(RoosterConnectionService.BUNDLE_MESSAGE_BODY);
                 Log.d(TAG, "from: " + from + ", body: " + body);
 
-                AppPreferences appPreferences = new AppPreferences(context, SharedPreferencesConstant.PREF);
-                appPreferences.putString(SharedPreferencesConstant.PREF_MESSAGES, body);
+                AppPreferences.putString(context, SharedPreferencesConstant.PREF_MESSAGES, body);
 
 //                if ( from.equals(contactJid))
 //                {

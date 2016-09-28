@@ -2,51 +2,39 @@ package com.blikoon.rooster.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import java.lang.reflect.Type;
-import java.util.List;
+import android.preference.PreferenceManager;
 
 /**
  * Created by User on 24/9/2016.
  */
 public class AppPreferences
 {
-    private SharedPreferences _sharedPrefs;
-    private SharedPreferences.Editor _prefsEditor;
-
-    public AppPreferences(Context context, String prefName) {
-        this._sharedPrefs = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        this._prefsEditor = _sharedPrefs.edit();
-    }
-
-    public String getString(String prefKey) {
-        return _sharedPrefs.getString(prefKey, ""); // return empty string if got null
-    }
-
-    public boolean getBoolean(String prefKey) {
-        return _sharedPrefs.getBoolean(prefKey, false);
-    }
-
-    public void putString(String prefKey, String value) {
-        _prefsEditor.putString(prefKey, value);
-        _prefsEditor.apply();
-    }
-
-    public void removeString(String prefKey)
+    private static SharedPreferences getDefaultSharedPreferences(Context _context)
     {
-        _prefsEditor.remove(prefKey);
-        _prefsEditor.apply();
+        return PreferenceManager.getDefaultSharedPreferences(_context);
     }
 
-    public boolean isPreferenceEmpty(String prefKey) // TODO: gson empty list is not empty, please revise
+    public static boolean getBoolean(Context _context, String _key, boolean _defValue)
     {
-        return getString(prefKey).isEmpty();
+        return getDefaultSharedPreferences(_context).getBoolean(_key, _defValue);
     }
 
-//    public <T> List<T> parsePreferenceToList(Type type, String prefKey)
-//    {
-//        final Gson gson = new Gson();
-//        String prefValues = this.getString(prefKey);
-//        return gson.fromJson(prefValues, type);
-//    }
+    public static String getString(Context _context, String _key, String _defValue)
+    {
+        return getDefaultSharedPreferences(_context).getString(_key, _defValue);
+    }
+
+    public static void putBoolean(Context _context, String _key, boolean _value)
+    {
+        getDefaultSharedPreferences(_context).edit()
+                .putBoolean(_key, _value)
+                .apply();
+    }
+
+    public static void putString(Context _context, String _key, String _value)
+    {
+        getDefaultSharedPreferences(_context).edit()
+                .putString(_key, _value)
+                .apply();
+    }
 }

@@ -4,10 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.blikoon.rooster.constant.SharedPreferencesConstant;
+import com.blikoon.rooster.util.AppPreferences;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManager;
@@ -55,10 +55,8 @@ public class RoosterConnection implements ConnectionListener,ChatMessageListener
     {
         Log.d(TAG,"RoosterConnection Constructor called.");
         mApplicationContext = context.getApplicationContext();
-        String jid = PreferenceManager.getDefaultSharedPreferences(mApplicationContext)
-                .getString(SharedPreferencesConstant.PREF_JID, null);
-        mPassword = PreferenceManager.getDefaultSharedPreferences(mApplicationContext)
-                .getString(SharedPreferencesConstant.PREF_PASSWORD, null);
+        String jid = AppPreferences.getString(mApplicationContext, SharedPreferencesConstant.PREF_JID, null);
+        mPassword = AppPreferences.getString(mApplicationContext, SharedPreferencesConstant.PREF_PASSWORD, null);
 
         if( jid != null)
         {

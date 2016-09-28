@@ -26,8 +26,6 @@ public class ChatActivity extends AppCompatActivity {
     private SendButton mSendButton;
     private BroadcastReceiver mBroadcastReceiver;
 
-    private AppPreferences appPreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +76,6 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         contactJid = intent.getStringExtra("EXTRA_CONTACT_JID");
         setTitle(contactJid);
-
-        appPreferences = new AppPreferences(getApplicationContext(), SharedPreferencesConstant.PREF);
     }
 
     @Override
@@ -92,7 +88,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        String oldMessages = appPreferences.getString(SharedPreferencesConstant.PREF_MESSAGES);
+        String oldMessages = AppPreferences.getString(this, SharedPreferencesConstant.PREF_MESSAGES, "null (default value)");
         mChatView.receiveMessage(oldMessages);
 
 
@@ -115,8 +111,6 @@ public class ChatActivity extends AppCompatActivity {
                         {
                             Log.d(TAG,"Got a message from jid :"+from);
                         }
-
-                        return;
                 }
 
             }
